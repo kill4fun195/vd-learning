@@ -12,6 +12,8 @@ from app.models.user import User  # noqa: F401 — register model with metadata
 async def lifespan(_: FastAPI):
     Base.metadata.create_all(bind=engine)
     yield
+    from app.services.cpu_service import cpu_loader
+    cpu_loader.stop()
 
 
 settings = get_settings()
